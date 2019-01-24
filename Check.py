@@ -33,3 +33,15 @@ def check_b(puzzle,row_n,col_n,attempt):
       if puzzle[temp_rn][temp_cn] == attempt:
         pos = False
   return pos
+
+
+
+def checker(matrix):
+  pos = True 
+  for row in matrix:
+    for space in row: 
+      if space == 0:
+        pos = False
+      else:
+        pass
+  return pos

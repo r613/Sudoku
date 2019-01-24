@@ -1,6 +1,11 @@
+import sys
 from Check import check_r
 from Check import check_c
 from Check import check_b
+from Create import create 
+from Check import checker
+
+                    
 def fill(matrix,size_v,size_h,times):
     times += 1
     print "\nRound " + str(times)
@@ -14,12 +19,20 @@ def fill(matrix,size_v,size_h,times):
                 print i
             fill(matrix,size_v,size_h,times) 
     else:
-        pass
-    
-
-#matrix = [[6,5,9,0,1,0,2,8,0],[1,0,0,0,5,0,0,3,0],[2,0,0,8,0,0,0,1,0],[0,0,0,1,3,5,0,7,0],[8,0,0,9,0,0,0,0,2],[0,0,3,0,7,8,6,4,0],[3,0,2,0,0,9,0,0,4],[0,0,0,0,0,1,8,0,0],[0,0,8,7,6,0,0,0,0]]
-
-
+        
+        if checker(matrix):
+            print "\n \n Solved!\n"
+            for i in matrix:
+                print i
+        else:
+            matrix = Guess(matrix,0)
+            print "Matrix in final"
+            for i in matrix:
+                print i
+            if debugger(matrix):
+                print "The puzzle has been confirmed as possible!"
+            else:
+                "We got a problem!"
 def by_row(matrix, size_v, size_h):
     changed = False 
     for row_n in range(size_v): #per row
@@ -63,10 +76,7 @@ def by_box(matrix,size_v, size_h):
                 else:
                     pass 
     return changed  
-    
             
-
-
 def by_column(matrix, size_v, size_h):
     changed = False 
     for column_n in range(size_h):
@@ -86,10 +96,6 @@ def by_column(matrix, size_v, size_h):
             else:
                 pass
     return changed 
-
-
-
-
 
 def by_space(matrix,size_v,size_h):
     changed = False #this marks if there have been any changes so far, and so far there have been no changes
@@ -111,11 +117,26 @@ def by_space(matrix,size_v,size_h):
             else:
                 pass #in a case in which the space we are looking at is already full
     return changed
+
+def debugger(matrix):
+  verified = True 
+  for row_n in range(9):
+      for space_n in range(9):
+          num = matrix[row_n][space_n]
+          matrix[row_n][space_n] = 0
+          if does_num(matrix, row_n, space_n, num):
+              pass
+          else:
+              verified = False 
+          matrix[row_n][space_n] = num
+  return verified 
+
 def does_num(matrix, row, space, num):
     if check_r(matrix, row, num) and check_c(matrix, space, num) and check_b(matrix, row, space, num):        
         return True
     else:
         return False
+
 def guess(matrix,row,space): #checks if a number fits in 
     ans = 0 #how many answers we found
     result = 0 #what the result is
@@ -131,3 +152,30 @@ def guess(matrix,row,space): #checks if a number fits in
     else:
         return 0
     print "\n"
+
+def Guess(matrix,deep):
+    
+    print '\n'
+    print "*" * deep #we check how deep it is (how many 'layers' of recursion there are)
+    if checker(matrix):
+        return matrix
+    else:
+        pass
+    
+    for row in range(9): # per row  
+        for space in range(9): # per piece in row 
+            if matrix[row][space] == 0: #if the space is empty 
+                 
+                for i in range(1,10): #i run every number 
+                    if does_num(matrix, row, space, i): #if i find a number that fits 
+                        
+                        temp_matrix = [x[:] for x in matrix] #temp_matrix is a copy 
+                        temp_matrix[row][space] = i #in the copy we put the suspected number (i) 
+                        result = Guess(temp_matrix, deep+1) # if the nubmer fits all the way (we check all the further combinations) if it worked out we make matrix the real matrix
+                        if checker(result):
+                            return result
+
+                        else:
+                            pass 
+
+                return matrix
