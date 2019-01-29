@@ -20,3 +20,21 @@ def row_creator():
   except:
     print "There was an error, Let's try again! "
     return row_creator()
+def Print(matrix):
+  print '\n'
+  r_Print(matrix,0)
+  r_Print(matrix,1)
+  r_Print(matrix,2)
+  print "-----------------"
+  
+  r_Print(matrix,3)
+  r_Print(matrix,4)
+  r_Print(matrix,5)
+  print "-----------------"
+  r_Print(matrix,6)
+  r_Print(matrix,7)
+  r_Print(matrix,8)
+  print '\n'
+  
+def r_Print(matrix,i):
+  print str(matrix[i][0]) +" "+ str(matrix[i][1]) +" "+ str(matrix[i][2]) +"|"+ str(matrix[i][3]) +" "+ str(matrix[i][4]) +" "+ str(matrix[i][5]) +"|"+str(matrix[i][6]) +" "+ str(matrix[i][7]) +" "+ str(matrix[i][8])

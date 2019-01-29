@@ -5,7 +5,9 @@ from Check import check_b
 from Create import create 
 from Check import checker
 from Input import Input 
+from Create import Print
 import time
+
 
                     
 def fill(matrix,size_v,size_h,times):
@@ -17,15 +19,13 @@ def fill(matrix,size_v,size_h,times):
     bbox = by_box(matrix,size_v,size_h)
     
     if bspace or brow or bcolumn or bbox: #as long as there has been a change
-            for i in matrix:
-                print i
+            Print(matrix)
             fill(matrix,size_v,size_h,times) 
     else:
         
         if checker(matrix):
             print "\n \n Solved!\n"
-            for i in matrix:
-                print i
+            Print(matrix)
         else:
             choice = Input("The script you entered seems to be a very challenging one, this might take some time, how much of the process would you like to see? Enter the nubmer you would like: \n 1. See nothing. \n 2. See how deep it is in every process - This choice may slightly slow down the process.\n 3. See the entire process - This has a large affect on the processing time.\n")
             start = time.time()
@@ -44,8 +44,7 @@ def fill(matrix,size_v,size_h,times):
             end = time.time()
             print "Length of this process (basically just tried any possibility): " + str(end - start)
             print "Matrix in final"
-            for i in matrix:
-                print i
+            Print(matrix)
             if debugger(matrix):
                 print "The puzzle has been confirmed as possible!"
             else:
@@ -233,8 +232,7 @@ def Guess_3(matrix,deep):
     
     print '\n'
     print "*" * deep #we check how deep it is (how many 'layers' of recursion there are)
-    for row in matrix:
-        print row
+    Print(matrix)
     
     for row in range(9): # per row  
         for space in range(9): # per piece in row 
