@@ -2,20 +2,25 @@
 from Create import create
 from Guess import fill
 from Guess import does_num
- 
+import time
 print "Hello"
+start = time.time()
 
-#matrix = create()
+matrix = create()
+#matrix = [[],[],[],[],[],[],[],[],[]]
+#Here you may enter your own matrix, in each list enter the 9 numbers with a Comma seperating them 
+
 #matrix = [[0,3,9,0,8,0,1,7,0],[8,0,0,0,0,0,6,0,0],[2,4,0,6,7,0,0,0,0],[0,0,0,9,0,0,7,0,3],[0,0,0,0,2,0,0,0,0],[4,0,8,0,0,5,0,0,0],[0,0,0,0,5,1,0,8,6],[0,0,6,0,0,0,0,0,7],[0,9,5,0,6,0,4,3,0],]
-#Hard matrix
-matrix = [[6,0,0,0,0,0,0,4,0],[0,1,7,4,0,0,0,0,3],[0,4,0,0,0,0,1,0,0],[2,5,6,0,0,9,0,0,0],[0,0,0,1,0,5,0,0,0],[0,0,0,3,0,0,8,5,6],[0,0,4,0,0,0,0,8,0],[3,0,0,0,0,2,5,9,0],[0,6,0,0,0,0,0,0,7,]]
-#evil matrix 
+#sample hard matrix
+
+#matrix = [[6,0,0,0,0,0,0,4,0],[0,1,7,4,0,0,0,0,3],[0,4,0,0,0,0,1,0,0],[2,5,6,0,0,9,0,0,0],[0,0,0,1,0,5,0,0,0],[0,0,0,3,0,0,8,5,6],[0,0,4,0,0,0,0,8,0],[3,0,0,0,0,2,5,9,0],[0,6,0,0,0,0,0,0,7,]]
+#sample evil matrix (very hard one, for professional Sudoku players)
 for row in matrix:
     print row
 
 fill(matrix,9,9,0)
-
-
+end = time.time()
+print "Length of total process: " + str(end-start) + " seconds." 
 
 
 

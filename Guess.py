@@ -4,6 +4,8 @@ from Check import check_c
 from Check import check_b
 from Create import create 
 from Check import checker
+from Input import Input 
+import time
 
                     
 def fill(matrix,size_v,size_h,times):
@@ -25,7 +27,22 @@ def fill(matrix,size_v,size_h,times):
             for i in matrix:
                 print i
         else:
-            matrix = Guess(matrix,0)
+            choice = Input("The script you entered seems to be a very challenging one, this might take some time, how much of the process would you like to see? Enter the nubmer you would like: \n 1. See nothing. \n 2. See how deep it is in every process - This choice may slightly slow down the process.\n 3. See the entire process - This has a large affect on the processing time.\n")
+            start = time.time()
+            if choice == 1:
+                matrix = Guess(matrix) #This is the really hard stuff (when it's a really hard level)
+            elif choice == 2:
+                
+                matrix = Guess_2(matrix,0)
+                print "The stars resemble how many numbers the process is trying to fill in at this point."
+            elif choice == 3:
+                matrix = Guess_3(matrix,0)
+                print "\n\nAbove you see what matrices the program was testing."
+            else:
+                print "Only a 1,2 or 3."
+                fill(matrix,9,9,0)
+            end = time.time()
+            print "Length of this process (basically just tried any possibility): " + str(end - start)
             print "Matrix in final"
             for i in matrix:
                 print i
@@ -153,7 +170,32 @@ def guess(matrix,row,space): #checks if a number fits in
         return 0
     print "\n"
 
-def Guess(matrix,deep):
+def Guess(matrix):
+    
+    
+    if checker(matrix):
+        return matrix
+    else:
+        pass
+    
+    for row in range(9): # per row  
+        for space in range(9): # per piece in row 
+            if matrix[row][space] == 0: #if the space is empty 
+                 
+                for i in range(1,10): #i run every number 
+                    if does_num(matrix, row, space, i): #if i find a number that fits 
+                        
+                        temp_matrix = [x[:] for x in matrix] #temp_matrix is a copy 
+                        temp_matrix[row][space] = i #in the copy we put the suspected number (i) 
+                        result = Guess(temp_matrix) # if the nubmer fits all the way (we check all the further combinations) if it worked out we make matrix the real matrix
+                        if checker(result):
+                            return result
+
+                        else:
+                            pass 
+
+                return matrix
+def Guess_2(matrix,deep):
     
     print '\n'
     print "*" * deep #we check how deep it is (how many 'layers' of recursion there are)
@@ -171,7 +213,39 @@ def Guess(matrix,deep):
                         
                         temp_matrix = [x[:] for x in matrix] #temp_matrix is a copy 
                         temp_matrix[row][space] = i #in the copy we put the suspected number (i) 
-                        result = Guess(temp_matrix, deep+1) # if the nubmer fits all the way (we check all the further combinations) if it worked out we make matrix the real matrix
+                        result = Guess_2(temp_matrix, deep+1) # if the nubmer fits all the way (we check all the further combinations) if it worked out we make matrix the real matrix
+                        if checker(result):
+                            return result
+
+                        else:
+                            pass 
+
+                return matrix
+def Guess_3(matrix,deep):
+    
+
+    
+
+    if checker(matrix):
+        return matrix
+    else:
+        pass
+    
+    print '\n'
+    print "*" * deep #we check how deep it is (how many 'layers' of recursion there are)
+    for row in matrix:
+        print row
+    
+    for row in range(9): # per row  
+        for space in range(9): # per piece in row 
+            if matrix[row][space] == 0: #if the space is empty 
+                 
+                for i in range(1,10): #i run every number 
+                    if does_num(matrix, row, space, i): #if i find a number that fits 
+                        
+                        temp_matrix = [x[:] for x in matrix] #temp_matrix is a copy 
+                        temp_matrix[row][space] = i #in the copy we put the suspected number (i) 
+                        result = Guess_3(temp_matrix, deep+1) # if the nubmer fits all the way (we check all the further combinations) if it worked out we make matrix the real matrix
                         if checker(result):
                             return result
 

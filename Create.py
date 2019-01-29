@@ -4,7 +4,8 @@ def create():
   size_w = 9
   list = []
   for row_no in range(size_h): #we run one row at a time
-    print "Please enter 9! numbers with a space seperating each group of 3  "
+    print "you can enter the puzzle in the code itself (there are instructions inside to see how), or you may just enter it here"
+    print "Please enter 9 numbers you may enter a space between each group of numbers,  "
     list.append(row_creator())
   return list
 
