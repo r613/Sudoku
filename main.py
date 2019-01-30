@@ -1,4 +1,4 @@
-#v6.0
+#v6.1
 from Create import create
 from Guess import fill
 from Guess import does_num
@@ -20,7 +20,7 @@ for row in matrix:
     print row
 
 fill(matrix,9,9,0)
-Print(matrix)
+
 end = time.time()
 print "Length of total process: " + str(end-start) + " seconds." 
 
