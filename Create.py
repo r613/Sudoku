@@ -1,4 +1,5 @@
 from Input import Input
+
 def create():
   size_h = 9
   size_w = 9
@@ -7,7 +8,21 @@ def create():
     print "you can enter the puzzle in the code itself (there are instructions inside to see how), or you may just enter it here"
     print "Please enter 9 numbers you may enter a space between each group of numbers,  "
     list.append(row_creator())
-  return list
+  
+  return fix_matrix(list)
+
+def fix_matrix(matrix):
+  print "This is the matrix you have entered:"
+  Print(matrix)
+  action = Input("If you would like to make any changes, enter the number of the row you would like to change, otherwise - enter 0.")
+  if action == 0:
+    return matrix
+  if (action == 1) or (action == 1) or (action == 2) or (action == 3) or (action == 4) or (action == 5) or (action == 6) or (action == 7) or (action == 8) or (action == 9):
+    matrix[action - 1] = row_creator()
+    return fix_matrix(matrix)
+  else:
+    print "Your choice was invalid let's try again:\n "
+    return fix_matrix(matrix)  
 
 def row_creator():
   try:

@@ -1,4 +1,4 @@
-#v6.1
+#v6.2
 from Create import create
 from Guess import fill
 from Guess import does_num
@@ -16,8 +16,7 @@ matrix = create()
 
 #matrix = [[6,0,0,0,0,0,0,4,0],[0,1,7,4,0,0,0,0,3],[0,4,0,0,0,0,1,0,0],[2,5,6,0,0,9,0,0,0],[0,0,0,1,0,5,0,0,0],[0,0,0,3,0,0,8,5,6],[0,0,4,0,0,0,0,8,0],[3,0,0,0,0,2,5,9,0],[0,6,0,0,0,0,0,0,7,]]
 #sample evil matrix (very hard one, for professional Sudoku players)
-for row in matrix:
-    print row
+Print(matrix)
 
 fill(matrix,9,9,0)
 
