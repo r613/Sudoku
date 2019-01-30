@@ -1,12 +1,17 @@
+#v6.3 - beta 
+#fixing problem
+#don't print long message before entering every line
+
 from Input import Input
 
 def create():
   size_h = 9
   size_w = 9
   list = []
+  print "you can enter the puzzle in the code itself (there are instructions inside to see how), or you may just enter it here"
+  print "Please enter 9 numbers you may enter a space between each group of numbers,"
   for row_no in range(size_h): #we run one row at a time
-    print "you can enter the puzzle in the code itself (there are instructions inside to see how), or you may just enter it here"
-    print "Please enter 9 numbers you may enter a space between each group of numbers,  "
+    print " ---------"
     list.append(row_creator())
   
   return fix_matrix(list)
@@ -14,7 +19,7 @@ def create():
 def fix_matrix(matrix):
   print "This is the matrix you have entered:"
   Print(matrix)
-  action = Input("If you would like to make any changes, enter the number of the row you would like to change, otherwise - enter 0.")
+  action = Input("If you would like to make any changes, enter the number of the row you would like to change, otherwise - enter 0: ")
   if action == 0:
     return matrix
   if (action == 1) or (action == 1) or (action == 2) or (action == 3) or (action == 4) or (action == 5) or (action == 6) or (action == 7) or (action == 8) or (action == 9):
@@ -26,7 +31,7 @@ def fix_matrix(matrix):
 
 def row_creator():
   try:
-    row_list = raw_input(": ").split(" ") # row_list would be a list the user enters (like 1,2,3) and then split by ',' into a list
+    row_list = raw_input(" ").split(" ") # row_list would be a list the user enters (like 1,2,3) and then split by ',' into a list
     new_list = []
     for nums in row_list:
       for num in nums:
