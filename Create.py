@@ -57,4 +57,5 @@ def Print(matrix):
   print '\n'
   
 def r_Print(matrix,i):
-  print str(matrix[i][0]) +" "+ str(matrix[i][1]) +" "+ str(matrix[i][2]) +"|"+ str(matrix[i][3]) +" "+ str(matrix[i][4]) +" "+ str(matrix[i][5]) +"|"+str(matrix[i][6]) +" "+ str(matrix[i][7]) +" "+ str(matrix[i][8])
+  print "{} {} {}|{} {} {}|{} {} {}".format(str(matrix[i][0]),str(matrix[i][1]),str(matrix[i][2]),str(matrix[i][3]),str(matrix[i][4]),str(matrix[i][5]),str(matrix[i][6]),str(matrix[i][7]),str(matrix[i][8]))
+  
