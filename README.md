@@ -2,6 +2,8 @@
 
 Python 2.7 
 
+ - Minor bug program asks how to solve second part after being solved
+
 Please leave feedback!
 icreatemyweb@Gmail.com
 
