@@ -1,5 +1,5 @@
 # Sudoku
-
+https://github.com/r613/Sudoku.git
 Python 2.7 
 
  - Minor bug program asks how to solve second part after being solved
