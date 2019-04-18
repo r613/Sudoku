@@ -13,10 +13,10 @@ import time
 def fill(matrix,size_v,size_h,times):
     times += 1
     print "\nRound " + str(times)
-    bspace = by_space(matrix, size_v, size_h)
-    brow =  by_row(matrix, size_v,size_h)
-    bcolumn = by_column(matrix,size_v,size_h)
-    bbox = by_box(matrix,size_v,size_h)
+    bspace = by_space(matrix)
+    brow =  by_row(matrix)
+    bcolumn = by_column(matrix)
+    bbox = by_box(matrix)
     
     if bspace or brow or bcolumn or bbox: #as long as there has been a change
             Print(matrix)
@@ -27,7 +27,7 @@ def fill(matrix,size_v,size_h,times):
             print "\n \n Solved!\n"
             Print(matrix)
         else:
-            choice = Input("The script you entered seems to be a very challenging one, this might take some time, how much of the process would you like to see? Enter the nubmer you would like: \n 1. See nothing. \n 2. See how deep it is in every process - This choice may slightly slow down the process.\n 3. See the entire process - This has a large affect on the processing time.\n")
+            choice =1# Input("The script you entered seems to be a very challenging one, this might take some time, how much of the process would you like to see? Enter the nubmer you would like: \n 1. See nothing. \n 2. See how deep it is in every process - This choice may slightly slow down the process.\n 3. See the entire process - This has a large affect on the processing time.\n")
             start = time.time()
             if choice == 1:
                 matrix = Guess(matrix) #This is the really hard stuff (when it's a really hard level)
@@ -49,14 +49,31 @@ def fill(matrix,size_v,size_h,times):
                 print "The puzzle has been confirmed as possible!"
             else:
                 "We got a problem!"
-def by_row(matrix, size_v, size_h):
+
+def by_row(matrix):
+    changed = False
+    for row_n in range(9):
+        for i in range(1,10):
+            pos = 0#resembles how many spaces can hold this number 
+            res = 0#the placing of the space which can contain the number (if there is more than 1 space then it doesn't matter anyways)
+            exists = False#if this number already exists in this row
+            for column_n in range(9):
+                if matrix[row_n][column_n] == 0 and fits(matrix,row_n,column_n,i):
+                    pos += 1
+                    res = column_n 
+            if pos == 1:
+                matrix[row_n][res] = i
+                changed = True
+    return changed
+    """
+def by_row(matrix):
     changed = False 
-    for row_n in range(size_v): #per row
+    for row_n in range(9): #per row
         
         for i in range(1,10): # we run every nubmer though the nubmer i
             ans = 0 #the number if spaces which can take the number i
             res = 0 #the nubmer space which can take the number i
-            for item_space in range(size_h): #
+            for item_space in range(9): #
                 if matrix[row_n][item_space] == 0 and does_num(matrix,row_n, item_space, i): #if the space == 0 and can hold the number i
                     ans += 1
                     res = item_space
@@ -67,12 +84,12 @@ def by_row(matrix, size_v, size_h):
                 changed = True 
             else:
                 pass      
-    return changed 
+    return changed """
 
-def by_box(matrix,size_v, size_h):
+def by_box(matrix):
     changed = False 
-    for box_row in range(size_h/3):
-        for box_column in range(size_v/3):
+    for box_row in range(9/3):
+        for box_column in range(9/3):
             for i in range(1,10):
                 ans = 0 
                 res_row = 0  #Every time we mark a number as 'item' it's a susptected number to be able to hold the nubmer we want to place
@@ -93,13 +110,13 @@ def by_box(matrix,size_v, size_h):
                     pass 
     return changed  
             
-def by_column(matrix, size_v, size_h):
+def by_column(matrix):
     changed = False 
-    for column_n in range(size_h):
+    for column_n in range(9):
         for i in range(1,10):
             ans = 0
             res = 0
-            for item_row in range(size_v): #for every item in the column
+            for item_row in range(9): #for every item in the column
                 if matrix[item_row][column_n] == 0 and does_num(matrix,item_row, column_n, i):
                     ans += 1
                     res = item_row #we mark on which row (of the column) we found a result 
@@ -112,13 +129,28 @@ def by_column(matrix, size_v, size_h):
             else:
                 pass
     return changed 
-
-def by_space(matrix,size_v,size_h):
+def by_space(matrix):
+    changes = False
+    for row_n in range(9):
+        for column_n in range(9):
+            if matrix[row_n][column_n]==0:
+                pos = 0#this resembles how many difference possible outcomes this space can have
+                res = 0#this resembles the latest result we found for this piece
+                for i in range(1,10):
+                    if fits(matrix,row_n,column_n,i):
+                        pos += 1
+                        res = i
+                if pos == 1:
+                    matrix[row_n][column_n] = res
+                    changes = True
+    return changes
+"""
+def by_space(matrix):
     changed = False #this marks if there have been any changes so far, and so far there have been no changes
 
-    for row_n in range(size_v): #per row
+    for row_n in range(9): #per row
 
-        for space_n in range(size_h): #per space in row 
+        for space_n in range(9): #per space in row 
 
             if matrix[row_n][space_n] == 0: #if the piece [in x row][in x space] == 0, if the piece we are at needs to be filled in  
 
@@ -132,7 +164,7 @@ def by_space(matrix,size_v,size_h):
                     pass
             else:
                 pass #in a case in which the space we are looking at is already full
-    return changed
+    return changed"""
 
 def debugger(matrix):
   verified = True 
@@ -147,11 +179,6 @@ def debugger(matrix):
           matrix[row_n][space_n] = num
   return verified 
 
-def does_num(matrix, row, space, num):
-    if check_r(matrix, row, num) and check_c(matrix, space, num) and check_b(matrix, row, space, num):        
-        return True
-    else:
-        return False
 
 def guess(matrix,row,space): #checks if a number fits in 
     ans = 0 #how many answers we found
@@ -251,3 +278,32 @@ def Guess_3(matrix,deep):
                             pass 
 
                 return matrix
+def does_num(matrix, row, space, num):
+    if check_r(matrix, row, num) and check_c(matrix, space, num) and check_b(matrix, row, space, num):        
+        return True
+    else:
+        return False
+def fits(matrix,row_n,column_n,a):
+    if fits_r(matrix,row_n,a) and fits_c(matrix,column_n,a) and fits_b(matrix,row_n,column_n,a):
+        return True
+    else:
+        return False
+def fits_r(matrix,row_n,a):
+    for unit in matrix[row_n]:
+        if unit == a:
+            return False
+    return True
+
+def fits_c(matrix,column_n,a):
+    for row in matrix:
+        if row[column_n] == a:
+            return False
+    return True
+  
+
+def fits_b(matrix,row_n,column_n,a):
+    for row_num in range( (row_n/3)*3,(row_n/3)*3+3 ):
+        for col_num in range( (column_n/3)*3,(column_n/3)*3+3):
+            if matrix[row_num][col_num] == a:
+                return False
+    return True

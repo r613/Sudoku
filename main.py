@@ -1,4 +1,4 @@
-#v6.4.1 - Newer printing function (I learned how to use the format function (I didn't even know it existed! it's so convinient!))
+#v6.5 - Newer printing function (I learned how to use the format function (I didn't even know it existed! it's so convinient!))
 #The first timer only starts after the matrix is created. - done X
 #don't give the full long message every time entering another line.
 from Create import create
